@@ -1,37 +1,71 @@
 import { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls, useGLTF, Center, Environment } from '@react-three/drei'
+import {
+  OrbitControls,
+  useGLTF,
+  Environment,
+  Center,
+} from '@react-three/drei'
+
+import {
+  LiquefyProvider,
+  GlassDock,
+  DockItem,
+} from '@liquefy-ui/react'
+
+import {
+  SparklesIcon,
+  SettingsIcon,
+  HomeIcon,
+} from '@liquefy-ui/icons'
+
+import '@liquefy-ui/react/styles.css'
 import './App.css'
 
 function Model() {
-  const { scene } = useGLTF(`${import.meta.env.BASE_URL}Light-Bulb.glb`)
+  const { scene } = useGLTF('/Light-Bulb.glb')
 
   return (
     <Center>
-      <primitive object={scene} scale={0.05} />
+      <primitive object={scene} scale={0.014} />
     </Center>
   )
 }
 
 function App() {
   return (
-    <div className="scene">
-      <Canvas camera={{ position: [30, 20, 30], fov: 45 }}>
-        <ambientLight intensity={1} />
+    <LiquefyProvider theme="dark">
+      <div className="scene">
 
-        <Environment preset="studio" />
+        <h1 className="scene-title">
+          The
+          <span>Founder&apos;s</span>
+          Collective
+        </h1>
 
-        <Suspense fallback={null}>
-          <Model />
-        </Suspense>
+        {/* 3D MODEL */}
+        <Canvas className="scene-canvas" camera={{ position: [2.2, 1.5, 2.2], fov: 38 }}>
+          <Environment preset="studio" />
+          <ambientLight intensity={1} />
 
-        <OrbitControls
-          enableDamping
-          minDistance={1}
-          maxDistance={10}
-        />
-      </Canvas>
-    </div>
+          <Suspense fallback={null}>
+            <Model />
+          </Suspense>
+
+          <OrbitControls enableDamping />
+        </Canvas>
+
+        {/* LIQUEFY GLASS DOCK */}
+        <div className="dock-position dark-blue-dock">
+          <GlassDock>
+            <DockItem icon={<HomeIcon />} label="Home" active />
+            <DockItem icon={<SparklesIcon />} label="Ideas" />
+            <DockItem icon={<SettingsIcon />} label="Settings" />
+          </GlassDock>
+        </div>
+
+      </div>
+    </LiquefyProvider>
   )
 }
 

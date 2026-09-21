@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@liquefy-ui/core": "^0.1.3",
+    "@liquefy-ui/icons": "^0.1.3",
+    "@liquefy-ui/react": "^0.4.0",
     "@react-three/drei": "^10.7.8",
     "@react-three/fiber": "^9.7.0",
     "@react-three/postprocessing": "^3.1.1",

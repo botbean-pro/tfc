@@ -1,5 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+html,
+body,
+#root {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+  background-color: #071a35;
+}
+
 .scene {
+  position: relative;
   width: 100vw;
   height: 100vh;
-  background: #111;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(35, 91, 153, 0.28), transparent 42%),
+    #071a35;
+}
+
+.scene-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 0;
+  width: min(92vw, 760px);
+  margin: 0;
+  color: rgba(151, 196, 239, 0.2);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(5rem, 14vw, 13rem);
+  font-weight: 400;
+  letter-spacing: 0.015em;
+  line-height: 0.76;
+  text-align: center;
+  text-transform: uppercase;
+  transform: translate(-50%, -50%);
+  user-select: none;
+  pointer-events: none;
+}
+
+.scene-title span {
+  display: block;
+  color: rgba(185, 216, 247, 0.28);
+}
+
+.scene-canvas {
+  position: relative;
+  z-index: 1;
+}
+
+.dock-position {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  z-index: 10;
+}
+
+.dark-blue-dock {
+  padding: 6px;
+  border: 1px solid rgba(137, 188, 237, 0.3);
+  border-radius: 18px;
+  background: rgba(6, 28, 59, 0.82);
+  box-shadow: 0 14px 40px rgba(0, 5, 18, 0.35);
+}
+
+@media (max-width: 640px) {
+  .dock-position {
+    top: 24px;
+    right: 24px;
+  }
+
+  .scene-title {
+    width: 100vw;
+    font-size: clamp(5rem, 20vw, 9rem);
+  }
 }
