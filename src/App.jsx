@@ -23,7 +23,9 @@ import '@liquefy-ui/react/styles.css'
 import './App.css'
 
 function Model() {
-  const { scene } = useGLTF('/Light-Bulb.glb')
+  const { scene } = useGLTF(
+    `${import.meta.env.BASE_URL}Light-Bulb.glb`,
+  )
 
   return (
     <Center>
