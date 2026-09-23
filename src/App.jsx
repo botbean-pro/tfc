@@ -1,4 +1,4 @@
-import { Suspense } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import {
   Center,
@@ -15,8 +15,8 @@ import {
 
 import {
   SparklesIcon,
-  SettingsIcon,
   HomeIcon,
+  UserIcon,
 } from '@liquefy-ui/icons'
 
 import '@liquefy-ui/react/styles.css'
@@ -37,15 +37,33 @@ function Model() {
 useGLTF.preload(modelUrl)
 
 function App() {
+  const [scrollProgress, setScrollProgress] = useState(0)
+
+  useEffect(() => {
+    const updateScrollProgress = () => {
+      setScrollProgress(Math.min(window.scrollY / 520, 1))
+    }
+
+    updateScrollProgress()
+    window.addEventListener('scroll', updateScrollProgress, { passive: true })
+
+    return () => window.removeEventListener('scroll', updateScrollProgress)
+  }, [])
+
+  const logoStyle = {
+    left: `${50 + ((88 / window.innerWidth) * 100 - 50) * scrollProgress}%`,
+    top: `${50 + ((88 / window.innerHeight) * 100 - 50) * scrollProgress}%`,
+    transform: `translate(-50%, -50%) scale(${1 - scrollProgress * 0.75})`,
+  }
+
   return (
-    <LiquefyProvider theme="dark">
+    <LiquefyProvider theme="dark" wobbliness={0.25}>
       <div className="scene">
 
-        <h1 className="scene-title">
-          The
-          <span>Founder&apos;s</span>
-          Collective
-        </h1>
+        <div className="brand-mark" style={logoStyle}>
+          <span className="brand-mark-circle" />
+          <img src="/logo.svg" alt="The Founders Club" />
+        </div>
 
         {/* 3D MODEL */}
         <Canvas className="scene-canvas" camera={{ position: [2.2, 1.5, 2.2], fov: 38 }}>
@@ -61,7 +79,7 @@ function App() {
             <Model />
           </Suspense>
 
-          <OrbitControls enableDamping />
+          <OrbitControls enableDamping enableZoom={false} enablePan={false} />
         </Canvas>
 
         {/* LIQUEFY GLASS DOCK */}
@@ -69,9 +87,14 @@ function App() {
           <GlassDock>
             <DockItem icon={<HomeIcon />} label="Home" active />
             <DockItem icon={<SparklesIcon />} label="Ideas" />
-            <DockItem icon={<SettingsIcon />} label="Settings" />
+            <DockItem icon={<UserIcon />} label="Profile" />
           </GlassDock>
         </div>
+
+        <footer className="site-footer">
+          <strong>The Founders Club</strong>
+          <span>© 2026 The Founders Club. All rights reserved.</span>
+        </footer>
 
       </div>
     </LiquefyProvider>
