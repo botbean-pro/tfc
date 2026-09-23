@@ -1,10 +1,10 @@
 import { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
 import {
+  Center,
   OrbitControls,
   useGLTF,
   Environment,
-  Center,
 } from '@react-three/drei'
 
 import {
@@ -22,17 +22,19 @@ import {
 import '@liquefy-ui/react/styles.css'
 import './App.css'
 
+const modelUrl = `${import.meta.env.BASE_URL}Light-Bulb.glb`
+
 function Model() {
-  const { scene } = useGLTF(
-    `${import.meta.env.BASE_URL}Light-Bulb.glb`,
-  )
+  const { scene } = useGLTF(modelUrl)
 
   return (
     <Center>
-      <primitive object={scene} scale={0.014} />
+      <primitive object={scene} scale={40} />
     </Center>
   )
 }
+
+useGLTF.preload(modelUrl)
 
 function App() {
   return (
@@ -47,8 +49,13 @@ function App() {
 
         {/* 3D MODEL */}
         <Canvas className="scene-canvas" camera={{ position: [2.2, 1.5, 2.2], fov: 38 }}>
-          <Environment preset="studio" />
-          <ambientLight intensity={1} />
+          <Suspense fallback={null}>
+            <Environment preset="studio" />
+          </Suspense>
+
+          <ambientLight intensity={1.4} />
+          <directionalLight position={[3, 4, 2]} intensity={2.5} />
+          <pointLight position={[-2, 1, 3]} intensity={20} distance={8} />
 
           <Suspense fallback={null}>
             <Model />
