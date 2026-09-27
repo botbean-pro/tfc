@@ -19,8 +19,19 @@ body {
   min-height: 220vh;
   overflow: clip;
   background:
-    radial-gradient(circle at 50% 42%, rgba(35, 91, 153, 0.28), transparent 42%),
+    radial-gradient(circle at 50% 38%, rgba(94, 173, 215, 0.3), transparent 38%),
+    radial-gradient(circle at 82% 10%, rgba(255, 255, 255, 0.12), transparent 24%),
+    linear-gradient(135deg, #06152d 0%, #0c3157 48%, #071a35 100%) 0 0 / 100% 100vh no-repeat,
     linear-gradient(to bottom, #071a35 0 100vh, #fff 100vh 100%);
+}
+
+.scene::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 100vh;
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.08), transparent 34%, rgba(255, 255, 255, 0.03));
+  content: '';
+  pointer-events: none;
 }
 
 .brand-mark {
@@ -46,14 +57,21 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.14);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.18));
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  box-shadow:
+    inset 10px 10px 24px rgba(255, 255, 255, 0.3),
+    inset -12px -14px 26px rgba(0, 18, 45, 0.2),
+    0 18px 50px rgba(0, 0, 0, 0.22);
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
+  backdrop-filter: blur(18px) saturate(130%);
 }
 
 .brand-mark img {
   width: 70%;
   height: 70%;
   object-fit: contain;
+  filter: drop-shadow(0 5px 7px rgba(0, 16, 40, 0.16));
 }
 
 .scene-canvas {
@@ -69,18 +87,249 @@ body {
   position: absolute;
   top: 25px;
   right: 25px;
-  z-index: 10;
+  z-index: 30;
 }
 
 .dark-blue-dock {
   padding: 6px;
   border-radius: 18px;
-  background: rgba(6, 28, 59, 0.82);
-  box-shadow: 0 14px 40px rgba(0, 5, 18, 0.35);
+  background: rgba(6, 28, 59, 0.52);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 14px 40px rgba(0, 5, 18, 0.35);
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
+  backdrop-filter: blur(18px) saturate(130%);
 }
 
 .dark-blue-dock .lq-dock__item:hover {
   transform: translateY(-1px);
+}
+
+.team-view {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  overflow-y: auto;
+  padding: clamp(88px, 12vh, 140px) clamp(24px, 8vw, 120px) 64px;
+  color: #fff;
+  background:
+    linear-gradient(135deg, rgba(6, 21, 45, 0.92), rgba(12, 49, 87, 0.84)),
+    radial-gradient(circle at 75% 10%, rgba(122, 210, 239, 0.24), transparent 35%);
+  -webkit-backdrop-filter: blur(22px) saturate(125%);
+  backdrop-filter: blur(22px) saturate(125%);
+}
+
+.team-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  max-width: 1120px;
+  margin: 0 auto 42px;
+}
+
+.team-kicker,
+.person-panel p {
+  margin: 0 0 8px;
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.team-header h1 {
+  margin: 0;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 11vw, 9rem);
+  font-weight: 400;
+  line-height: 0.82;
+  letter-spacing: 0.04em;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.team-card {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 20px;
+  min-width: 0;
+  padding: 14px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 16px 34px rgba(0, 8, 24, 0.15);
+  cursor: pointer;
+  text-align: left;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.team-card:hover,
+.team-card:focus-visible {
+  background: rgba(255, 255, 255, 0.17);
+  outline: none;
+  transform: translateY(-3px);
+}
+
+.team-card img {
+  width: 110px;
+  height: 132px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.team-card-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+
+.team-card-copy strong {
+  font-size: 1.15rem;
+}
+
+.team-card-copy small {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.78rem;
+}
+
+.team-card-copy > span {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.person-expanded,
+.person-backdrop {
+  position: absolute;
+  inset: 0;
+}
+
+.person-expanded {
+  position: fixed;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.person-backdrop {
+  border: 0;
+  background: rgba(1, 9, 22, 0.58);
+  cursor: pointer;
+}
+
+.person-panel {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(180px, 0.8fr) 1fr;
+  gap: 28px;
+  width: min(680px, 100%);
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 22px;
+  background: rgba(13, 42, 72, 0.8);
+  box-shadow: 0 30px 80px rgba(0, 5, 18, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  -webkit-backdrop-filter: blur(24px) saturate(130%);
+  backdrop-filter: blur(24px) saturate(130%);
+}
+
+.person-panel > button {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+}
+
+.person-panel > img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+.person-panel > div {
+  align-self: center;
+}
+
+.person-panel h2 {
+  margin: 0 0 16px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 400;
+  line-height: 0.9;
+}
+
+.person-panel > div > span {
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.6;
+}
+
+.signup-view {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  overflow-y: auto;
+  padding: clamp(88px, 12vh, 140px) clamp(24px, 8vw, 120px) 64px;
+  color: #fff;
+  background:
+    linear-gradient(135deg, rgba(6, 21, 45, 0.92), rgba(12, 49, 87, 0.84)),
+    radial-gradient(circle at 25% 12%, rgba(122, 210, 239, 0.24), transparent 35%);
+  -webkit-backdrop-filter: blur(22px) saturate(125%);
+  backdrop-filter: blur(22px) saturate(125%);
+}
+
+.signup-content {
+  width: min(760px, 100%);
+  margin: 0 auto;
+}
+
+.signup-content h1 {
+  margin: 0;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 11vw, 9rem);
+  font-weight: 400;
+  line-height: 0.82;
+  letter-spacing: 0.04em;
+}
+
+.signup-intro {
+  margin: 20px 0 34px;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 1rem;
+}
+
+.signup-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  padding: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 20px 50px rgba(0, 8, 24, 0.18);
+  -webkit-backdrop-filter: blur(18px) saturate(125%);
+  backdrop-filter: blur(18px) saturate(125%);
+}
+
+.signup-submit {
+  grid-column: 1 / -1;
+  justify-self: start;
+  margin-top: 8px;
+}
+
+.signup-confirmation {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: rgba(206, 244, 255, 0.86);
+  font-size: 0.9rem;
 }
 
 .site-footer {
@@ -99,6 +348,30 @@ body {
   font-size: 0.85rem;
 }
 
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.contact-link {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.social-links {
+  display: flex;
+  gap: 10px;
+}
+
+.social-links img {
+  width: 18px;
+  height: 18px;
+  object-fit: cover;
+}
+
 .site-footer strong {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.35rem;
@@ -108,10 +381,69 @@ body {
 }
 
 @media (max-width: 640px) {
+  .team-view {
+    padding: 88px 16px 32px;
+  }
+
+  .team-grid {
+    gap: 10px;
+  }
+
+  .team-card {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 10px;
+  }
+
+  .team-card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1.1;
+  }
+
+  .team-card-copy {
+    gap: 4px;
+  }
+
+  .team-card-copy strong {
+    font-size: 0.98rem;
+  }
+
+  .team-card-copy small,
+  .team-card-copy > span {
+    font-size: 0.7rem;
+  }
+
+  .person-panel {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .person-panel > img {
+    max-height: 42vh;
+  }
+
+  .signup-view {
+    padding: 88px 16px 32px;
+  }
+
+  .signup-form {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+
   .site-footer {
     align-items: flex-start;
     flex-direction: column;
     padding: 28px 24px;
+  }
+
+  .footer-links {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
   }
 }
 
